@@ -3,403 +3,973 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BioTrack V3 | Biomedical Data Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="BioTrack — Biomedical Vital Signs Monitoring and Data Analytics educational project.">
+<title>BioTrack | Biomedical Data Analytics</title>
+
 <style>
-:root{--bg:#f3f6fb;--card:#fff;--ink:#192840;--muted:#718096;--blue:#3563df;--line:#e2e8f0;--green:#14795e;--red:#b83232;--amber:#96621a}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",Arial,sans-serif}
-header{background:#14213d;color:white;padding:20px max(20px,calc((100% - 1180px)/2));display:flex;justify-content:space-between;align-items:center;gap:15px}
-.brand{display:flex;align-items:center;gap:12px}.logo{background:#3563df;border-radius:12px;padding:10px 14px;font-size:22px}
-h1,h2,h3,p{margin-top:0}h1{font-size:21px;margin-bottom:2px}header p{color:#c3cfe2;font-size:12px;margin:0}
-main{max-width:1180px;margin:auto;padding:26px 20px 40px}
-.topline,.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-h2{font-size:25px;margin-bottom:4px}h3{font-size:16px;margin-bottom:3px}
-.muted{color:var(--muted);font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:20px 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:19px;box-shadow:0 4px 16px #182a4608;min-width:0}
-.metric-label{color:var(--muted);font-size:12px}.metric{font-size:28px;font-weight:750;letter-spacing:-.7px;margin:7px 0}.metric small{font-size:12px;font-weight:500}
-.layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,1fr);gap:16px}
-.stack{display:grid;gap:16px;align-content:start}
-input,select,button{font:inherit;border:1px solid var(--line);border-radius:9px;padding:10px 11px;min-width:0;background:white;color:var(--ink)}
-button{cursor:pointer;font-weight:650}button:hover{filter:brightness(.97)}
-.primary{background:var(--blue);border-color:var(--blue);color:white}
-.danger{color:var(--red);background:white;border-color:#f0caca}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.field{display:grid;gap:5px}.field label{font-size:12px;font-weight:650;color:#46566d}
-.field input,.field select{width:100%}
-.full{grid-column:1/-1}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.status{padding:10px 12px;border-radius:9px;font-size:12px;margin-top:12px}
-.status.good{background:#e9f7f0;color:#176b51}.status.bad{background:#fff0f0;color:#a22d2d}
-.chart-wrap{height:245px;position:relative;margin-top:10px}canvas{width:100%;height:100%;display:block}
-.legend{display:flex;gap:13px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-top:8px}
-.legend span:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);margin-right:5px}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-.toolbar input{flex:1;min-width:190px}
-.table-wrap{overflow-x:auto;margin-top:14px}
-table{border-collapse:collapse;width:100%;white-space:nowrap}
-th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);font-size:12px}
-th{background:#f9fbfe;color:var(--muted);text-transform:uppercase;font-size:10px;letter-spacing:.4px}
-tbody tr:hover{background:#f8faff}
-.badge{display:inline-block;border-radius:20px;padding:4px 8px;font-size:10px;font-weight:700}
-.badge.ok{background:#e7f6ee;color:#176b51}.badge.check{background:#fff3dd;color:#87540d}.badge.invalid{background:#ffe8e8;color:#a22d2d}
-.quality-list{display:grid;gap:10px;margin-top:14px}
-.quality-item{border:1px solid var(--line);padding:12px;border-radius:10px}
-.quality-item strong{font-size:13px}.quality-item p{font-size:12px;color:var(--muted);margin:4px 0 0}
-.notice{background:#edf3ff;border:1px solid #d9e5ff;color:#344d79;padding:13px 15px;border-radius:11px;font-size:12px;margin-top:18px}
-footer{text-align:center;color:var(--muted);font-size:11px;padding:25px 0}
-.empty{text-align:center;padding:22px;color:var(--muted);font-size:12px}
-@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}}
-@media(max-width:480px){main{padding:20px 12px}.grid{gap:9px}.card{padding:14px}.metric{font-size:24px}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}header{padding:15px}}
+:root {
+  --bg:#f3f6fb;
+  --surface:#ffffff;
+  --surface-2:#f8fafc;
+  --text:#172033;
+  --muted:#718096;
+  --border:#e5eaf2;
+  --primary:#2563eb;
+  --primary-light:#eff6ff;
+  --green:#059669;
+  --green-light:#ecfdf5;
+  --amber:#d97706;
+  --amber-light:#fffbeb;
+  --red:#dc2626;
+  --red-light:#fef2f2;
+  --sidebar:#101a2e;
+  --sidebar-muted:#a8b5ca;
+  --radius:18px;
+  --shadow:0 6px 24px rgba(24,39,75,.05);
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+}
+button,input,select {font:inherit}
+button {cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible {
+  outline:3px solid #93c5fd;
+  outline-offset:2px;
+}
+.app {display:flex;min-height:100vh}
+.sidebar {
+  width:245px;
+  flex-shrink:0;
+  background:var(--sidebar);
+  color:white;
+  padding:27px 18px;
+  display:flex;
+  flex-direction:column;
+}
+.brand {display:flex;align-items:center;gap:12px;padding:0 7px 34px}
+.brand-mark {
+  width:42px;height:42px;border-radius:13px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#3b82f6,#14b8a6);
+  font-size:23px;font-weight:800;
+}
+.brand-name {font-size:20px;font-weight:800;letter-spacing:-.7px}
+.brand-sub {font-size:11px;color:var(--sidebar-muted)}
+.nav-label {
+  color:#8190a9;font-size:10px;letter-spacing:1.5px;
+  font-weight:800;margin:8px 10px 12px;
+}
+.nav-item {
+  display:flex;align-items:center;gap:12px;
+  padding:12px 13px;border-radius:11px;
+  color:var(--sidebar-muted);font-size:13px;
+  margin-bottom:5px;text-decoration:none;
+}
+.nav-item.active,.nav-item:hover {
+  background:#1e3150;color:#fff;
+}
+.nav-icon {width:21px;text-align:center;font-size:17px}
+.sidebar-bottom {margin-top:auto;padding:20px 5px 0}
+.status-card {
+  border:1px solid #293852;border-radius:13px;
+  padding:13px;font-size:12px;color:var(--sidebar-muted);
+}
+.status-dot {
+  display:inline-block;width:8px;height:8px;border-radius:50%;
+  background:#34d399;margin-right:7px;
+}
+.sidebar-footer {font-size:11px;color:#8190a9;margin:15px 8px 0}
+.main {flex:1;min-width:0;padding:30px clamp(16px,3vw,38px)}
+.topbar {
+  display:flex;align-items:center;justify-content:space-between;
+  gap:15px;margin-bottom:28px;flex-wrap:wrap;
+}
+.eyebrow {
+  color:var(--primary);font-size:10px;font-weight:800;
+  letter-spacing:1.7px;text-transform:uppercase;
+}
+h1 {font-size:clamp(25px,3vw,33px);letter-spacing:-1.1px;margin:5px 0}
+.subtitle {color:var(--muted);font-size:13px}
+.top-actions {display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.date-chip {
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:10px 13px;font-size:12px;color:var(--muted);
+}
+.btn {
+  border:0;border-radius:10px;padding:10px 15px;
+  font-weight:700;font-size:12px;transition:.15s;
+}
+.btn:hover {filter:brightness(.96);transform:translateY(-1px)}
+.btn-primary {background:var(--primary);color:#fff}
+.btn-secondary {background:var(--surface);border:1px solid var(--border);color:var(--text)}
+.btn-danger {background:var(--red-light);color:var(--red)}
+.notice {
+  display:flex;gap:12px;align-items:flex-start;
+  padding:15px 17px;border-radius:13px;
+  background:#eff6ff;border:1px solid #dbeafe;
+  color:#334b71;font-size:12px;margin-bottom:24px;
+}
+.notice strong {color:#1d4ed8}
+.notice-icon {font-size:19px}
+.section-heading {
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin:28px 0 14px;flex-wrap:wrap;
+}
+.section-heading h2 {font-size:16px;margin:0;letter-spacing:-.3px}
+.section-heading p {font-size:12px;color:var(--muted);margin:4px 0 0}
+.metrics {
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;
+}
+.metric {
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:19px;box-shadow:var(--shadow);
+  min-width:0;
+}
+.metric-top {display:flex;justify-content:space-between;align-items:center;gap:8px}
+.metric-label {font-size:12px;color:var(--muted);font-weight:600}
+.metric-icon {
+  display:grid;place-items:center;width:35px;height:35px;
+  border-radius:11px;font-size:17px;
+}
+.blue {background:var(--primary-light);color:var(--primary)}
+.green {background:var(--green-light);color:var(--green)}
+.orange {background:var(--amber-light);color:var(--amber)}
+.purple {background:#f5f3ff;color:#7c3aed}
+.metric-value {font-size:30px;font-weight:800;letter-spacing:-1.2px;margin:12px 0 2px}
+.metric-unit {font-size:12px;color:var(--muted);font-weight:500}
+.metric-foot {font-size:11px;color:var(--muted)}
+.panel {
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);
+  min-width:0;
+}
+.analytics-grid {display:grid;grid-template-columns:1.5fr 1fr;gap:16px}
+.chart-wrap {height:245px;position:relative;margin-top:12px}
+canvas {width:100%;height:100%;display:block}
+.legend {display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+.legend span {font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.legend i {display:inline-block;width:8px;height:8px;border-radius:50%}
+.summary-list {display:grid;gap:0}
+.summary-row {
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:15px 0;border-bottom:1px solid var(--border);
+}
+.summary-row:last-child {border-bottom:0}
+.summary-label {font-size:12px;color:var(--muted)}
+.summary-value {font-size:15px;font-weight:800;text-align:right}
+.summary-detail {font-size:10px;color:var(--muted);text-align:right}
+.toolbar {
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  margin:16px 0;
+}
+.field {
+  min-width:0;background:#fff;border:1px solid var(--border);
+  border-radius:10px;padding:10px 12px;font-size:12px;color:var(--text);
+}
+.search-field {flex:1;min-width:170px}
+.table-wrap {overflow-x:auto}
+table {width:100%;border-collapse:collapse;white-space:nowrap}
+th {
+  text-align:left;padding:12px 14px;background:var(--surface-2);
+  color:var(--muted);font-size:10px;letter-spacing:.7px;
+  text-transform:uppercase;font-weight:800;
+}
+td {padding:14px;border-bottom:1px solid var(--border);font-size:12px}
+tbody tr:last-child td {border-bottom:0}
+tbody tr:hover {background:#fafcff}
+.patient-id {font-weight:800;color:#24324a}
+.small-muted {font-size:10px;color:var(--muted);margin-top:3px}
+.badge {
+  display:inline-flex;align-items:center;gap:5px;
+  border-radius:20px;padding:5px 9px;font-size:10px;font-weight:800;
+}
+.badge-good {background:var(--green-light);color:var(--green)}
+.badge-check {background:var(--amber-light);color:var(--amber)}
+.badge-flag {background:var(--red-light);color:var(--red)}
+.empty {text-align:center;color:var(--muted);padding:34px 15px}
+.form-grid {
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;
+}
+.form-field {display:flex;flex-direction:column;gap:6px}
+.form-field label {font-size:11px;font-weight:700;color:#48566c}
+.form-field input,.form-field select {width:100%}
+.form-note {font-size:11px;color:var(--muted);margin:12px 0}
+.form-actions {display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.message {font-size:12px;margin-top:12px;min-height:18px}
+.message.error {color:var(--red)}
+.message.success {color:var(--green)}
+.details-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.detail-card {
+  background:var(--surface);border:1px solid var(--border);
+  padding:17px;border-radius:14px;
+}
+.detail-card h3 {font-size:12px;margin:0 0 7px}
+.detail-card p {font-size:11px;color:var(--muted);margin:0;line-height:1.7}
+.footer {
+  margin-top:30px;border-top:1px solid var(--border);
+  padding:20px 0 5px;display:flex;justify-content:space-between;
+  gap:10px;flex-wrap:wrap;color:var(--muted);font-size:10px;
+}
+.footer strong {color:#475569}
+.hidden {display:none!important}
+@media(max-width:1100px) {
+  .metrics {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .details-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:780px) {
+  .sidebar {width:66px;padding:22px 9px}
+  .brand {justify-content:center;padding:0 0 30px}
+  .brand-copy,.nav-label,.nav-text,.sidebar-bottom {display:none}
+  .nav-item {justify-content:center;padding:12px 4px}
+  .main {padding:22px 15px}
+  .analytics-grid {grid-template-columns:1fr}
+}
+@media(max-width:500px) {
+  .metrics {grid-template-columns:1fr 1fr;gap:9px}
+  .metric {padding:13px}
+  .metric-value {font-size:25px}
+  .metric-label {font-size:11px}
+  .form-grid,.details-grid {grid-template-columns:1fr}
+  .topbar {align-items:flex-start}
+  .date-chip {display:none}
+  .panel {padding:14px}
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {scroll-behavior:auto!important;transition:none!important}
+}
 </style>
 </head>
+
 <body>
-<header>
-  <div class="brand">
-    <div class="logo">♡</div>
-    <div><h1>BioTrack</h1><p>Biomedical Data Lab · Version 3.0</p></div>
-  </div>
-  <span>PORTFOLIO DEMO</span>
-</header>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">B+</div>
+      <div class="brand-copy">
+        <div class="brand-name">BioTrack</div>
+        <div class="brand-sub">Biomedical Data Analytics</div>
+      </div>
+    </div>
 
-<main>
-  <div class="topline">
-    <div><h2>Monitoring workspace</h2><div class="muted">Synthetic vital-sign records · Local browser storage</div></div>
-    <button class="primary" id="exportBtn">↓ Export CSV</button>
-  </div>
+    <div class="nav-label">WORKSPACE</div>
+    <a class="nav-item active" href="#overview"><span class="nav-icon">▦</span><span class="nav-text">Overview</span></a>
+    <a class="nav-item" href="#analytics"><span class="nav-icon">⌁</span><span class="nav-text">Data Analytics</span></a>
+    <a class="nav-item" href="#records"><span class="nav-icon">▤</span><span class="nav-text">Measurement Records</span></a>
+    <a class="nav-item" href="#add-record"><span class="nav-icon">＋</span><span class="nav-text">Add Measurement</span></a>
+    <a class="nav-item" href="#project"><span class="nav-icon">ⓘ</span><span class="nav-text">Project Details</span></a>
 
-  <section class="grid">
-    <div class="card"><div class="metric-label">Total records</div><div class="metric" id="total">—</div><div class="muted">Stored sample measurements</div></div>
-    <div class="card"><div class="metric-label">Average heart rate</div><div class="metric" id="avgHr">—</div><div class="muted">bpm</div></div>
-    <div class="card"><div class="metric-label">Average SpO₂</div><div class="metric" id="avgSpo">—</div><div class="muted">percent</div></div>
-    <div class="card"><div class="metric-label">Data-quality checks</div><div class="metric" id="qualityCount">—</div><div class="muted">Records needing review</div></div>
-  </section>
+    <div class="sidebar-bottom">
+      <div class="status-card">
+        <span class="status-dot"></span>Local storage enabled
+        <div style="margin-top:8px">Fictional sample dataset</div>
+      </div>
+      <div class="sidebar-footer">BioTrack · Version 4.0</div>
+    </div>
+  </aside>
 
-  <section class="layout">
-    <div class="stack">
-      <div class="card">
-        <div class="section-head"><div><h3>Vital-sign trend</h3><div class="muted">Compare measurements across records</div></div>
-          <select id="metricSelect" aria-label="Select chart metric">
-            <option value="hr">Heart rate</option><option value="spo">SpO₂</option><option value="temp">Temperature</option>
-          </select>
+  <main class="main">
+    <header class="topbar" id="overview">
+      <div>
+        <div class="eyebrow">Biomedical Analytics</div>
+        <h1>Vital Signs Dashboard</h1>
+        <div class="subtitle">Vital Signs Monitoring &amp; Biomedical Data Analytics</div>
+      </div>
+      <div class="top-actions">
+        <div class="date-chip" id="todayLabel">Current date</div>
+        <button class="btn btn-secondary" id="exportTop">↓ Export CSV</button>
+      </div>
+    </header>
+
+    <div class="notice">
+      <div class="notice-icon">ⓘ</div>
+      <div>
+        <strong>Educational research prototype.</strong>
+        All initial records are fictional and intended for software demonstration and learning.
+        This application is not a medical device and must not be used for diagnosis,
+        treatment, or clinical decision-making. Do not enter identifiable real patient data.
+      </div>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <div>
+          <h2>Dataset Overview</h2>
+          <p>Summary of records matching your current filters.</p>
         </div>
-        <div class="chart-wrap"><canvas id="chart"></canvas></div>
-        <div class="muted">Horizontal axis: record order · Vertical axis: selected measurement</div>
+        <button class="btn btn-secondary" id="resetFilters">Clear Filters</button>
       </div>
 
-      <div class="card">
-        <div class="section-head"><div><h3>Measurement records</h3><div class="muted" id="shownCount"></div></div></div>
-        <div class="toolbar">
-          <input id="search" type="search" placeholder="Search ID, name or date…" aria-label="Search records">
-          <select id="qualityFilter" aria-label="Filter record quality">
-            <option value="all">All data quality</option><option value="ok">Valid range</option><option value="review">Needs review</option>
-          </select>
+      <div class="metrics">
+        <article class="metric">
+          <div class="metric-top">
+            <span class="metric-label">Measurement Records</span>
+            <span class="metric-icon blue">▤</span>
+          </div>
+          <div class="metric-value" id="totalRecords">0</div>
+          <div class="metric-foot">Records in current view</div>
+        </article>
+
+        <article class="metric">
+          <div class="metric-top">
+            <span class="metric-label">Average Heart Rate</span>
+            <span class="metric-icon green">♡</span>
+          </div>
+          <div class="metric-value"><span id="avgHR">—</span> <span class="metric-unit">bpm</span></div>
+          <div class="metric-foot">Mean recorded heart rate</div>
+        </article>
+
+        <article class="metric">
+          <div class="metric-top">
+            <span class="metric-label">Average SpO₂</span>
+            <span class="metric-icon purple">◉</span>
+          </div>
+          <div class="metric-value"><span id="avgSpO2">—</span><span class="metric-unit">%</span></div>
+          <div class="metric-foot">Mean oxygen saturation</div>
+        </article>
+
+        <article class="metric">
+          <div class="metric-top">
+            <span class="metric-label">Quality Review</span>
+            <span class="metric-icon orange">✓</span>
+          </div>
+          <div class="metric-value" id="qualityCount">0</div>
+          <div class="metric-foot">Records flagged for review</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="analytics">
+      <div class="section-heading">
+        <div>
+          <h2>Analytics &amp; Trends</h2>
+          <p>Visual summaries of the currently filtered dataset.</p>
         </div>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="panel">
+          <h3 style="font-size:14px;margin:0">Vital Signs by Record</h3>
+          <p class="subtitle">Heart rate and oxygen saturation trends</p>
+          <div class="chart-wrap"><canvas id="trendChart" aria-label="Vital signs trend chart"></canvas></div>
+          <div class="legend">
+            <span><i style="background:#2563eb"></i>Heart rate (bpm)</span>
+            <span><i style="background:#10b981"></i>SpO₂ (%)</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 style="font-size:14px;margin:0">Statistical Summary</h3>
+          <p class="subtitle">Descriptive statistics for visible records</p>
+          <div class="summary-list">
+            <div class="summary-row">
+              <div class="summary-label">Heart Rate Range</div>
+              <div><div class="summary-value" id="hrRange">—</div><div class="summary-detail">bpm · min to max</div></div>
+            </div>
+            <div class="summary-row">
+              <div class="summary-label">SpO₂ Range</div>
+              <div><div class="summary-value" id="spoRange">—</div><div class="summary-detail">% · min to max</div></div>
+            </div>
+            <div class="summary-row">
+              <div class="summary-label">Average Temperature</div>
+              <div><div class="summary-value" id="avgTemp">—</div><div class="summary-detail">°C</div></div>
+            </div>
+            <div class="summary-row">
+              <div class="summary-label">Data Quality</div>
+              <div><div class="summary-value" id="qualityPercent">—</div><div class="summary-detail">Records passing basic checks</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="records">
+      <div class="section-heading">
+        <div>
+          <h2>Measurement Records</h2>
+          <p>Search, filter, review, and export synthetic vital-sign measurements.</p>
+        </div>
+        <button class="btn btn-primary" onclick="document.getElementById('add-record').scrollIntoView({behavior:'smooth'})">＋ Add Measurement</button>
+      </div>
+
+      <div class="panel">
+        <div class="toolbar">
+          <input class="field search-field" id="searchInput" type="search" placeholder="Search Patient ID or notes..." aria-label="Search records">
+          <select class="field" id="qualityFilter" aria-label="Filter by data quality">
+            <option value="all">All quality statuses</option>
+            <option value="good">Passes basic checks</option>
+            <option value="review">Requires review</option>
+          </select>
+          <label class="small-muted" for="dateFrom">From</label>
+          <input class="field" id="dateFrom" type="date" aria-label="Start date">
+          <label class="small-muted" for="dateTo">To</label>
+          <input class="field" id="dateTo" type="date" aria-label="End date">
+          <button class="btn btn-secondary" id="exportTable">Export CSV</button>
+        </div>
+
         <div class="table-wrap">
           <table>
-            <thead><tr><th>ID</th><th>Sample</th><th>Date/time</th><th>HR</th><th>SpO₂</th><th>Temp</th><th>Quality</th></tr></thead>
-            <tbody id="rows"></tbody>
+            <thead>
+              <tr>
+                <th>Patient ID</th>
+                <th>Recorded At</th>
+                <th>Heart Rate</th>
+                <th>SpO₂</th>
+                <th>Temperature</th>
+                <th>Data Quality</th>
+              </tr>
+            </thead>
+            <tbody id="recordsBody"></tbody>
           </table>
-          <div id="empty" class="empty" hidden>No matching records.</div>
+          <div id="emptyState" class="empty hidden">No records match the selected filters.</div>
         </div>
-        <div class="actions"><button id="resetFilters">Reset filters</button><button id="resetDemo" class="danger">Reset demo data</button></div>
-        <div class="muted">Reset demo data deletes locally stored additions and restores the original fictional records.</div>
+        <div class="small-muted" id="tableCount" style="margin-top:12px">0 records</div>
       </div>
-    </div>
+    </section>
 
-    <div class="stack">
-      <div class="card">
-        <h3>Add a measurement</h3>
-        <div class="muted">Enter fictional sample data for project testing.</div>
-        <form id="recordForm" style="margin-top:16px">
+    <section id="add-record">
+      <div class="section-heading">
+        <div>
+          <h2>Add Measurement</h2>
+          <p>Add a fictional record to the local dataset.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <form id="recordForm">
           <div class="form-grid">
-            <div class="field"><label for="patientId">Sample ID</label><input id="patientId" placeholder="BT-1013" required maxlength="30"></div>
-            <div class="field"><label for="sampleName">Sample label</label><input id="sampleName" placeholder="Sample Patient M" required maxlength="60"></div>
-            <div class="field full"><label for="timestamp">Measurement date and time</label><input id="timestamp" type="datetime-local" required></div>
-            <div class="field"><label for="heartRate">Heart rate (bpm)</label><input id="heartRate" type="number" min="1" max="300" step="1" required></div>
-            <div class="field"><label for="spo2">SpO₂ (%)</label><input id="spo2" type="number" min="1" max="100" step="0.1" required></div>
-            <div class="field full"><label for="temperature">Temperature (°C)</label><input id="temperature" type="number" min="20" max="50" step="0.1" required></div>
+            <div class="form-field">
+              <label for="patientId">Patient ID *</label>
+              <input class="field" id="patientId" maxlength="40" required placeholder="e.g. SYN-013">
+            </div>
+            <div class="form-field">
+              <label for="recordDate">Measurement Date &amp; Time *</label>
+              <input class="field" id="recordDate" type="datetime-local" required>
+            </div>
+            <div class="form-field">
+              <label for="heartRate">Heart Rate (bpm) *</label>
+              <input class="field" id="heartRate" type="number" min="1" max="300" step="1" required placeholder="e.g. 72">
+            </div>
+            <div class="form-field">
+              <label for="spo2">SpO₂ (%) *</label>
+              <input class="field" id="spo2" type="number" min="1" max="100" step="0.1" required placeholder="e.g. 98">
+            </div>
+            <div class="form-field">
+              <label for="temperature">Temperature (°C) *</label>
+              <input class="field" id="temperature" type="number" min="25" max="45" step="0.1" required placeholder="e.g. 36.8">
+            </div>
+            <div class="form-field">
+              <label for="notes">Notes (optional)</label>
+              <input class="field" id="notes" maxlength="200" placeholder="Synthetic record note">
+            </div>
           </div>
-          <div class="actions"><button class="primary" type="submit">＋ Add record</button><button type="reset" id="clearForm">Clear form</button></div>
-          <div id="formMessage" aria-live="polite"></div>
+          <p class="form-note">All fields marked * are required. Basic data-quality flags are for software testing only, not medical assessment.</p>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save Measurement</button>
+            <button class="btn btn-secondary" type="reset" id="clearForm">Clear Form</button>
+          </div>
+          <div class="message" id="formMessage" role="status" aria-live="polite"></div>
         </form>
       </div>
+    </section>
 
-      <div class="card">
-        <h3>Data-quality report</h3>
-        <div class="muted">Technical checks, not clinical decisions.</div>
-        <div id="qualityList" class="quality-list"></div>
-      </div>
-
-      <div class="card">
-        <h3>Project details</h3>
-        <div class="quality-list">
-          <div class="quality-item"><strong>Frontend</strong><p>HTML, CSS, JavaScript and Canvas charting.</p></div>
-          <div class="quality-item"><strong>Persistence</strong><p>Browser localStorage; data stays on this browser unless cleared.</p></div>
-          <div class="quality-item"><strong>Data source</strong><p>Fictional records created for learning and demonstration.</p></div>
+    <section id="project">
+      <div class="section-heading">
+        <div>
+          <h2>Project Details</h2>
+          <p>Technical overview of this educational application.</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <div class="notice"><strong>Important:</strong> BioTrack is an educational prototype, not a medical device. It does not diagnose conditions or provide treatment advice. Data-quality labels identify unusual or incomplete demo data, not whether a person is healthy. Do not enter real patient information.</div>
-  <footer>BioTrack V3 · Biomedical Technology + IT Portfolio Project</footer>
-</main>
+      <div class="details-grid">
+        <article class="detail-card">
+          <h3>Technology Stack</h3>
+          <p>HTML5, CSS3 and vanilla JavaScript. Canvas-based data visualization with a responsive interface.</p>
+        </article>
+        <article class="detail-card">
+          <h3>Data Management</h3>
+          <p>Browser localStorage for local persistence. CSV export supports analysis in spreadsheet applications.</p>
+        </article>
+        <article class="detail-card">
+          <h3>Data Quality</h3>
+          <p>Basic input validation, duplicate ID prevention, timestamp checks and configurable record filtering.</p>
+        </article>
+        <article class="detail-card">
+          <h3>Privacy &amp; Safety</h3>
+          <p>Fictional sample data only. Local browser storage is not encrypted or designed for protected health information.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div><strong>BioTrack V4</strong> · Biomedical Technology &amp; Health Informatics</div>
+      <div>Educational prototype · Not for clinical use</div>
+    </footer>
+  </main>
+</div>
 
 <script>
 "use strict";
 
-const STORAGE_KEY = "biotrack_v3_synthetic_records";
-const seed = [
- {id:"BT-1001",name:"Sample Patient A",date:"2026-10-25T09:00",hr:72,spo:98,temp:36.7},
- {id:"BT-1002",name:"Sample Patient B",date:"2026-10-25T09:15",hr:84,spo:97,temp:36.8},
- {id:"BT-1003",name:"Sample Patient C",date:"2026-10-25T09:30",hr:68,spo:99,temp:36.5},
- {id:"BT-1004",name:"Sample Patient D",date:"2026-10-25T09:45",hr:105,spo:94,temp:37.4},
- {id:"BT-1005",name:"Sample Patient E",date:"2026-10-25T10:00",hr:77,spo:98,temp:36.9},
- {id:"BT-1006",name:"Sample Patient F",date:"2026-10-25T10:15",hr:58,spo:96,temp:36.4},
- {id:"BT-1007",name:"Sample Patient G",date:"2026-10-25T10:30",hr:91,spo:97,temp:37.1},
- {id:"BT-1008",name:"Sample Patient H",date:"2026-10-25T10:45",hr:73,spo:99,temp:36.6},
- {id:"BT-1009",name:"Sample Patient I",date:"2026-10-25T11:00",hr:88,spo:93,temp:37.2},
- {id:"BT-1010",name:"Sample Patient J",date:"2026-10-25T11:15",hr:64,spo:98,temp:36.8},
- {id:"BT-1011",name:"Sample Patient K",date:"2026-10-25T11:30",hr:96,spo:97,temp:37.0},
- {id:"BT-1012",name:"Sample Patient L",date:"2026-10-25T11:45",hr:80,spo:98,temp:36.7}
-];
+const STORAGE_KEY = "biotrack_v4_synthetic_records";
+const OLD_STORAGE_KEY = "biotrack_v3_synthetic_records";
 
 const $ = id => document.getElementById(id);
-let records = loadRecords();
+
+const now = new Date();
+const localDateTime = date => {
+  const offset = date.getTimezoneOffset() * 60000;
+  return new Date(date.getTime() - offset).toISOString().slice(0,16);
+};
+const dateOnly = date => localDateTime(date).slice(0,10);
+
+$("todayLabel").textContent = now.toLocaleDateString(undefined,{
+  year:"numeric",month:"short",day:"numeric"
+});
+$("recordDate").value = localDateTime(now);
+
+function makeSampleRecords() {
+  const sample = [
+    ["SYN-001",72,98,36.7,"Fictional sample"],
+    ["SYN-002",80,97,36.8,"Fictional sample"],
+    ["SYN-003",68,99,36.5,"Fictional sample"],
+    ["SYN-004",88,96,37.0,"Fictional sample"],
+    ["SYN-005",75,98,36.6,"Fictional sample"],
+    ["SYN-006",92,97,37.1,"Fictional sample"],
+    ["SYN-007",64,99,36.4,"Fictional sample"],
+    ["SYN-008",78,98,36.8,"Fictional sample"],
+    ["SYN-009",84,95,37.2,"Fictional sample"],
+    ["SYN-010",70,98,36.7,"Fictional sample"],
+    ["SYN-011",76,97,36.9,"Fictional sample"],
+    ["SYN-012",66,99,36.5,"Fictional sample"]
+  ];
+
+  return sample.map((r,i) => {
+    const d = new Date(now);
+    d.setDate(d.getDate() - (sample.length - 1 - i));
+    d.setHours(8 + (i % 10), (i * 7) % 60, 0, 0);
+    return {
+      id:r[0],
+      timestamp:localDateTime(d),
+      heartRate:r[1],
+      spo2:r[2],
+      temperature:r[3],
+      notes:r[4]
+    };
+  });
+}
+
+function normaliseRecord(r) {
+  return {
+    id:String(r.id ?? r.patientId ?? "").trim(),
+    timestamp:String(r.timestamp ?? r.recordedAt ?? r.date ?? ""),
+    heartRate:Number(r.heartRate ?? r.hr),
+    spo2:Number(r.spo2 ?? r.SpO2),
+    temperature:Number(r.temperature ?? r.temp),
+    notes:String(r.notes ?? "")
+  };
+}
 
 function loadRecords() {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed) && parsed.every(isValidStructure)) return parsed;
+    const current = localStorage.getItem(STORAGE_KEY);
+    if (current) {
+      const parsed = JSON.parse(current);
+      if (Array.isArray(parsed)) return parsed.map(normaliseRecord);
     }
-  } catch (e) {
-    console.warn("Could not read local records:", e);
+
+    const old = localStorage.getItem(OLD_STORAGE_KEY);
+    if (old) {
+      const parsed = JSON.parse(old);
+      if (Array.isArray(parsed)) {
+        const migrated = parsed.map(normaliseRecord);
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(migrated));
+        return migrated;
+      }
+    }
+  } catch (err) {
+    console.warn("Local data could not be loaded.",err);
   }
-  return seed.map(r => ({...r}));
+  return makeSampleRecords();
 }
 
-function isValidStructure(r) {
-  return r && typeof r.id === "string" && typeof r.name === "string" &&
-    typeof r.date === "string" && Number.isFinite(Number(r.hr)) &&
-    Number.isFinite(Number(r.spo)) && Number.isFinite(Number(r.temp));
-}
+let records = loadRecords();
 
 function saveRecords() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(records));
     return true;
-  } catch (e) {
-    showMessage("Browser storage is unavailable or full. Your changes may not persist.", false);
+  } catch (err) {
+    console.error("Local storage save failed.",err);
+    alert("The browser could not save this data. Storage may be unavailable or full.");
     return false;
   }
 }
 
-function dataIssues(r) {
+function qualityInfo(r) {
   const issues = [];
-  if (!r.id.trim() || !r.name.trim() || !r.date.trim()) issues.push("Missing required field");
-  if (!Number.isFinite(Number(r.hr)) || r.hr < 1 || r.hr > 300) issues.push("Invalid heart rate format/range");
-  if (!Number.isFinite(Number(r.spo)) || r.spo < 1 || r.spo > 100) issues.push("Invalid SpO₂ format/range");
-  if (!Number.isFinite(Number(r.temp)) || r.temp < 20 || r.temp > 50) issues.push("Invalid temperature format/range");
-  if (!Number.isFinite(Date.parse(r.date))) issues.push("Invalid timestamp");
-  return issues;
+  const d = new Date(r.timestamp);
+
+  if (!r.id) issues.push("Missing ID");
+  if (!Number.isFinite(r.heartRate) || r.heartRate < 1 || r.heartRate > 300)
+    issues.push("Heart rate outside software validation limits");
+  if (!Number.isFinite(r.spo2) || r.spo2 < 1 || r.spo2 > 100)
+    issues.push("SpO₂ outside software validation limits");
+  if (!Number.isFinite(r.temperature) || r.temperature < 25 || r.temperature > 45)
+    issues.push("Temperature outside software validation limits");
+  if (!r.timestamp || Number.isNaN(d.getTime()))
+    issues.push("Invalid timestamp");
+  else if (d.getTime() > Date.now() + 5 * 60 * 1000)
+    issues.push("Timestamp is in the future");
+
+  return {ok:issues.length === 0,issues};
 }
 
-// Broad software-validation bounds only, not clinical reference ranges.
-function quality(r) {
-  const issues = dataIssues(r);
-  if (issues.length) return {label:"Invalid",cls:"invalid",issues};
-  return {label:"Valid format",cls:"ok",issues:[]};
-}
+function getFilteredRecords() {
+  const search = $("searchInput").value.trim().toLowerCase();
+  const quality = $("qualityFilter").value;
+  const from = $("dateFrom").value;
+  const to = $("dateTo").value;
 
-function fmtDate(value) {
-  return value.replace("T"," ");
-}
-
-function getFiltered() {
-  const q = $("search").value.trim().toLowerCase();
-  const filter = $("qualityFilter").value;
   return records.filter(r => {
-    const matchText = [r.id,r.name,r.date].join(" ").toLowerCase().includes(q);
-    const isOk = quality(r).issues.length === 0;
-    const matchQuality = filter === "all" || (filter === "ok" ? isOk : !isOk);
-    return matchText && matchQuality;
-  }).sort((a,b) => a.date.localeCompare(b.date));
+    const matchesSearch = !search ||
+      r.id.toLowerCase().includes(search) ||
+      r.notes.toLowerCase().includes(search);
+    const q = qualityInfo(r);
+    const matchesQuality = quality === "all" ||
+      (quality === "good" && q.ok) ||
+      (quality === "review" && !q.ok);
+    const day = r.timestamp.slice(0,10);
+    const matchesFrom = !from || day >= from;
+    const matchesTo = !to || day <= to;
+    return matchesSearch && matchesQuality && matchesFrom && matchesTo;
+  }).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
 }
 
-function mean(list,key) {
-  return list.length ? (list.reduce((s,r)=>s+Number(r[key]),0)/list.length).toFixed(1) : "—";
+function average(arr,key) {
+  const vals = arr.map(r => Number(r[key])).filter(Number.isFinite);
+  if (!vals.length) return null;
+  return vals.reduce((sum,v) => sum + v,0) / vals.length;
+}
+
+function fmt(value,decimals=1) {
+  return value === null || !Number.isFinite(value) ? "—" : value.toFixed(decimals);
+}
+
+function renderMetrics(data) {
+  $("totalRecords").textContent = data.length;
+
+  const hr = average(data,"heartRate");
+  const spo = average(data,"spo2");
+  const temp = average(data,"temperature");
+  $("avgHR").textContent = fmt(hr,1);
+  $("avgSpO2").textContent = fmt(spo,1);
+  $("avgTemp").textContent = temp === null ? "—" : fmt(temp,1) + " °C";
+
+  const flagged = data.filter(r => !qualityInfo(r).ok).length;
+  $("qualityCount").textContent = flagged;
+  $("qualityPercent").textContent = data.length
+    ? Math.round((data.length - flagged) / data.length * 100) + "%"
+    : "—";
+
+  const hrs = data.map(r => Number(r.heartRate)).filter(Number.isFinite);
+  const spos = data.map(r => Number(r.spo2)).filter(Number.isFinite);
+  $("hrRange").textContent = hrs.length
+    ? `${fmt(Math.min(...hrs),0)} – ${fmt(Math.max(...hrs),0)}`
+    : "—";
+  $("spoRange").textContent = spos.length
+    ? `${fmt(Math.min(...spos),1)} – ${fmt(Math.max(...spos),1)}`
+    : "—";
+}
+
+function renderTable(data) {
+  const body = $("recordsBody");
+  body.replaceChildren();
+
+  $("emptyState").classList.toggle("hidden",data.length !== 0);
+  $("tableCount").textContent =
+    `${data.length} record${data.length === 1 ? "" : "s"} shown`;
+
+  data.forEach(r => {
+    const tr = document.createElement("tr");
+    const q = qualityInfo(r);
+
+    const values = [
+      {main:r.id,sub:r.notes},
+      {main:formatDate(r.timestamp),sub:""},
+      {main:Number.isFinite(r.heartRate) ? `${r.heartRate} bpm` : "—"},
+      {main:Number.isFinite(r.spo2) ? `${r.spo2}%` : "—"},
+      {main:Number.isFinite(r.temperature) ? `${r.temperature.toFixed(1)} °C` : "—"}
+    ];
+
+    values.forEach((v,i) => {
+      const td = document.createElement("td");
+      if (i === 0) {
+        const main = document.createElement("div");
+        main.className = "patient-id";
+        main.textContent = v.main;
+        td.appendChild(main);
+        if (v.sub) {
+          const sub = document.createElement("div");
+          sub.className = "small-muted";
+          sub.textContent = v.sub;
+          td.appendChild(sub);
+        }
+      } else {
+        td.textContent = v.main;
+        if (v.sub) {
+          const sub = document.createElement("div");
+          sub.className = "small-muted";
+          sub.textContent = v.sub;
+          td.appendChild(sub);
+        }
+      }
+      tr.appendChild(td);
+    });
+
+    const td = document.createElement("td");
+    const badge = document.createElement("span");
+    badge.className = "badge " + (q.ok ? "badge-good" : "badge-check");
+    badge.textContent = q.ok ? "✓ Passes checks" : "⚠ Review";
+    if (!q.ok) badge.title = q.issues.join("; ");
+    td.appendChild(badge);
+    tr.appendChild(td);
+    body.appendChild(tr);
+  });
+}
+
+function formatDate(value) {
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? "Invalid date" :
+    d.toLocaleString(undefined,{
+      year:"numeric",month:"short",day:"2-digit",
+      hour:"2-digit",minute:"2-digit"
+    });
+}
+
+function drawChart(data) {
+  const canvas = $("trendChart");
+  const ctx = canvas.getContext("2d");
+  const rect = canvas.getBoundingClientRect();
+  const ratio = window.devicePixelRatio || 1;
+  canvas.width = Math.max(1,Math.floor(rect.width * ratio));
+  canvas.height = Math.max(1,Math.floor(rect.height * ratio));
+  ctx.setTransform(ratio,0,0,ratio,0,0);
+
+  const w = rect.width, h = rect.height;
+  ctx.clearRect(0,0,w,h);
+
+  const sorted = [...data]
+    .filter(r => Number.isFinite(r.heartRate) && Number.isFinite(r.spo2))
+    .sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp))
+    .slice(-12);
+
+  const pad = {left:37,right:14,top:20,bottom:35};
+  const cw = w - pad.left - pad.right;
+  const ch = h - pad.top - pad.bottom;
+
+  if (!sorted.length) {
+    ctx.fillStyle = "#718096";
+    ctx.font = "12px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("No data available for this selection",w/2,h/2);
+    return;
+  }
+
+  const hrMin = Math.min(40,...sorted.map(r => r.heartRate));
+  const hrMax = Math.max(120,...sorted.map(r => r.heartRate));
+  const spoMin = Math.min(90,...sorted.map(r => r.spo2));
+  const spoMax = Math.max(100,...sorted.map(r => r.spo2));
+
+  for (let i=0;i<=4;i++) {
+    const y = pad.top + ch * i/4;
+    ctx.beginPath();
+    ctx.moveTo(pad.left,y);
+    ctx.lineTo(w-pad.right,y);
+    ctx.strokeStyle = "#edf1f7";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.fillStyle = "#8793a5";
+    ctx.font = "10px sans-serif";
+    ctx.textAlign = "right";
+    ctx.fillText(String(Math.round(hrMax-(hrMax-hrMin)*i/4)),pad.left-7,y+3);
+  }
+
+  const x = i => sorted.length === 1
+    ? pad.left + cw/2
+    : pad.left + cw*i/(sorted.length-1);
+  const yHR = v => pad.top + ch*(hrMax-v)/(hrMax-hrMin || 1);
+  const ySpo = v => pad.top + ch*(spoMax-v)/(spoMax-spoMin || 1);
+
+  function drawSeries(key,yFn,color) {
+    ctx.beginPath();
+    sorted.forEach((r,i) => {
+      const px=x(i),py=yFn(r[key]);
+      if (i===0) ctx.moveTo(px,py);
+      else ctx.lineTo(px,py);
+    });
+    ctx.strokeStyle=color;
+    ctx.lineWidth=2.3;
+    ctx.lineJoin="round";
+    ctx.lineCap="round";
+    ctx.stroke();
+
+    sorted.forEach((r,i) => {
+      ctx.beginPath();
+      ctx.arc(x(i),yFn(r[key]),3,0,Math.PI*2);
+      ctx.fillStyle=color;
+      ctx.fill();
+    });
+  }
+
+  drawSeries("heartRate",yHR,"#2563eb");
+  drawSeries("spo2",ySpo,"#10b981");
+
+  ctx.fillStyle="#8793a5";
+  ctx.font="10px sans-serif";
+  ctx.textAlign="center";
+  const ticks = Math.min(sorted.length,6);
+  for (let i=0;i<ticks;i++) {
+    const idx = ticks === 1 ? 0 : Math.round(i*(sorted.length-1)/(ticks-1));
+    const d = new Date(sorted[idx].timestamp);
+    const label = Number.isNaN(d.getTime()) ? "" :
+      d.toLocaleDateString(undefined,{month:"short",day:"numeric"});
+    ctx.fillText(label,x(idx),h-10);
+  }
 }
 
 function render() {
-  const list = getFiltered();
-  $("total").textContent = records.length;
-  $("avgHr").textContent = mean(list,"hr");
-  $("avgSpo").textContent = mean(list,"spo");
-  $("qualityCount").textContent = records.filter(r=>quality(r).issues.length).length;
-  $("shownCount").textContent = `${list.length} shown · ${records.length} total records`;
-
-  $("rows").innerHTML = list.map(r => {
-    const q = quality(r);
-    return `<tr>
-      <td><strong>${escapeHtml(r.id)}</strong></td>
-      <td>${escapeHtml(r.name)}</td><td>${escapeHtml(fmtDate(r.date))}</td>
-      <td>${escapeHtml(r.hr)} bpm</td><td>${escapeHtml(r.spo)}%</td>
-      <td>${escapeHtml(r.temp)} °C</td>
-      <td><span class="badge ${q.cls}">${q.label}</span></td>
-    </tr>`;
-  }).join("");
-  $("empty").hidden = list.length > 0;
-  renderQuality();
-  drawChart(list);
+  const data = getFilteredRecords();
+  renderMetrics(data);
+  renderTable(data);
+  drawChart(data);
 }
-
-function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, ch => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[ch]);
-}
-
-function renderQuality() {
-  const invalid = records.filter(r=>quality(r).issues.length);
-  const items = [];
-  items.push({title:"Required fields and numeric bounds",detail:"All records are checked for required values, numeric fields and broad software-validation bounds.",ok:records.every(r=>quality(r).issues.length===0)});
-  const seen = new Set();
-  const duplicateIds = records.filter(r=>{
-    const key = r.id.trim().toLowerCase();
-    if (seen.has(key)) return true;
-    seen.add(key); return false;
-  });
-  items.push({title:"Duplicate sample IDs",detail:duplicateIds.length ? `${duplicateIds.length} duplicate ID occurrence(s) found. Each record should have a unique ID.`:"No duplicate sample IDs detected.",ok:duplicateIds.length===0});
-  items.push({title:"Invalid records",detail:invalid.length ? `${invalid.length} record(s) require technical data review.`:"No invalid formats or out-of-bounds entries detected.",ok:invalid.length===0});
-  $("qualityList").innerHTML = items.map(i=>`<div class="quality-item">
-    <span class="badge ${i.ok?"ok":"check"}">${i.ok?"PASS":"REVIEW"}</span>
-    <strong style="margin-left:6px">${i.title}</strong><p>${i.detail}</p>
-  </div>`).join("");
-}
-
-function drawChart(list) {
-  const canvas=$("chart"), rect=canvas.getBoundingClientRect();
-  const dpr=window.devicePixelRatio||1;
-  canvas.width=Math.max(1,Math.round(rect.width*dpr));
-  canvas.height=Math.max(1,Math.round(rect.height*dpr));
-  const ctx=canvas.getContext("2d");
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  const w=rect.width,h=rect.height;
-  ctx.clearRect(0,0,w,h);
-  const pad={l:42,r:12,t:14,b:32}, cw=w-pad.l-pad.r,ch=h-pad.t-pad.b;
-  const key=$("metricSelect").value;
-  const settings={
-    hr:{min:40,max:140,color:"#3563df",unit:"bpm"},
-    spo:{min:85,max:100,color:"#14795e",unit:"%"},
-    temp:{min:34,max:42,color:"#d9822b",unit:"°C"}
-  }[key];
-  ctx.font="11px Segoe UI,Arial";
-  ctx.strokeStyle="#e2e8f0";ctx.fillStyle="#718096";ctx.lineWidth=1;
-  for(let i=0;i<=4;i++){
-    const y=pad.t+ch*i/4;
-    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();
-    const value=settings.max-(settings.max-settings.min)*i/4;
-    ctx.fillText(value.toFixed(key==="temp"?1:0),2,y+4);
-  }
-  if(!list.length){
-    ctx.textAlign="center";ctx.fillText("No records to plot",w/2,h/2);return;
-  }
-  ctx.strokeStyle=settings.color;ctx.fillStyle=settings.color;ctx.lineWidth=2;
-  ctx.beginPath();
-  list.forEach((r,i)=>{
-    const x=pad.l+(list.length===1?cw/2:cw*i/(list.length-1));
-    const value=Number(r[key]);
-    const ratio=(value-settings.min)/(settings.max-settings.min);
-    const y=pad.t+ch*(1-Math.max(0,Math.min(1,ratio)));
-    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
-  });
-  ctx.stroke();
-  list.forEach((r,i)=>{
-    const x=pad.l+(list.length===1?cw/2:cw*i/(list.length-1));
-    const ratio=(Number(r[key])-settings.min)/(settings.max-settings.min);
-    const y=pad.t+ch*(1-Math.max(0,Math.min(1,ratio)));
-    ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();
-  });
-  ctx.fillStyle="#718096";ctx.textAlign="center";
-  const n=Math.min(5,list.length);
-  for(let i=0;i<n;i++){
-    const idx=n===1?0:Math.round(i*(list.length-1)/(n-1));
-    const x=pad.l+(list.length===1?cw/2:cw*idx/(list.length-1));
-    ctx.fillText(String(idx+1),x,h-10);
-  }
-}
-
-function showMessage(message,good) {
-  $("formMessage").className="status "+(good?"good":"bad");
-  $("formMessage").textContent=message;
-}
-
-$("recordForm").addEventListener("submit",event=>{
-  event.preventDefault();
-  const id=$("patientId").value.trim();
-  const name=$("sampleName").value.trim();
-  const date=$("timestamp").value;
-  const hr=Number($("heartRate").value);
-  const spo=Number($("spo2").value);
-  const temp=Number($("temperature").value);
-
-  if(!id||!name||!date){showMessage("Please complete all fields.",false);return;}
-  if(!Number.isFinite(Date.parse(date))){showMessage("Please enter a valid date and time.",false);return;}
-  if(!Number.isFinite(hr)||hr<1||hr>300){showMessage("Heart rate must be between 1 and 300 bpm for this software demo.",false);return;}
-  if(!Number.isFinite(spo)||spo<1||spo>100){showMessage("SpO₂ must be between 1 and 100 for this software demo.",false);return;}
-  if(!Number.isFinite(temp)||temp<20||temp>50){showMessage("Temperature must be between 20°C and 50°C for this software demo.",false);return;}
-  if(records.some(r=>r.id.trim().toLowerCase()===id.toLowerCase())){
-    showMessage("That sample ID already exists. Enter a unique ID.",false);return;
-  }
-
-  records.push({id,name,date,hr,spo,temp});
-  saveRecords();
-  $("search").value="";
-  $("qualityFilter").value="all";
-  $("recordForm").reset();
-  render();
-  showMessage("Sample record added. Check the table and quality report.",true);
-});
 
 function exportCSV() {
-  const list=getFiltered();
-  if(!list.length){alert("No records to export.");return;}
-  const headers=["Sample ID","Sample Label","Date Time","Heart Rate bpm","SpO2 percent","Temperature C","Quality"];
-  const quote=v=>'"'+String(v).replace(/"/g,'""')+'"';
-  const csv=[headers,...list.map(r=>[r.id,r.name,r.date,r.hr,r.spo,r.temp,quality(r).label])]
-    .map(row=>row.map(quote).join(",")).join("\r\n");
-  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
-  const url=URL.createObjectURL(blob),a=document.createElement("a");
-  a.href=url;a.download="biotrack-v3-synthetic-data.csv";
-  document.body.appendChild(a);a.click();a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  const data = getFilteredRecords();
+  if (!data.length) {
+    alert("There are no records to export for the current filters.");
+    return;
+  }
+
+  const columns = ["Patient ID","Timestamp","Heart Rate (bpm)","SpO2 (%)","Temperature (C)","Notes","Quality Status"];
+  const quote = value => `"${String(value ?? "").replace(/"/g,'""')}"`;
+  const rows = data.map(r => [
+    r.id,r.timestamp,r.heartRate,r.spo2,r.temperature,r.notes,
+    qualityInfo(r).ok ? "Passes checks" : "Requires review"
+  ]);
+  const csv = [columns,...rows].map(row => row.map(quote).join(",")).join("\r\n");
+  const blob = new Blob(["\uFEFF",csv],{type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "biotrack-v4-synthetic-data.csv";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
 }
 
-$("search").addEventListener("input",render);
-$("qualityFilter").addEventListener("change",render);
-$("metricSelect").addEventListener("change",render);
-$("exportBtn").addEventListener("click",exportCSV);
-$("resetFilters").addEventListener("click",()=>{
-  $("search").value="";$("qualityFilter").value="all";render();
+["searchInput","qualityFilter","dateFrom","dateTo"].forEach(id => {
+  $(id).addEventListener("input",render);
+  $(id).addEventListener("change",render);
 });
-$("resetDemo").addEventListener("click",()=>{
-  if(!confirm("Delete local BioTrack additions and restore the original fictional sample records?"))return;
-  records=seed.map(r=>({...r}));
-  try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
-  saveRecords();render();
-});
-$("clearForm").addEventListener("click",()=>{
-  $("formMessage").textContent="";$("formMessage").className="";
-});
-window.addEventListener("resize",()=>drawChart(getFiltered()));
 
-const now=new Date();
-const localNow=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,16);
-$("timestamp").value=localNow;
+$("resetFilters").addEventListener("click",() => {
+  $("searchInput").value = "";
+  $("qualityFilter").value = "all";
+  $("dateFrom").value = "";
+  $("dateTo").value = "";
+  render();
+});
+
+$("exportTop").addEventListener("click",exportCSV);
+$("exportTable").addEventListener("click",exportCSV);
+
+$("recordForm").addEventListener("submit",event => {
+  event.preventDefault();
+  const message = $("formMessage");
+  message.className = "message";
+  message.textContent = "";
+
+  const record = {
+    id:$("patientId").value.trim(),
+    timestamp:$("recordDate").value,
+    heartRate:Number($("heartRate").value),
+    spo2:Number($("spo2").value),
+    temperature:Number($("temperature").value),
+    notes:$("notes").value.trim()
+  };
+
+  if (!record.id || !record.timestamp) {
+    message.classList.add("error");
+    message.textContent = "Please complete all required fields.";
+    return;
+  }
+
+  if (records.some(r => r.id.toLowerCase() === record.id.toLowerCase())) {
+    message.classList.add("error");
+    message.textContent = "This Patient ID already exists. Use a unique synthetic ID.";
+    $("patientId").focus();
+    return;
+  }
+
+  if (!Number.isFinite(record.heartRate) || record.heartRate < 1 || record.heartRate > 300 ||
+      !Number.isFinite(record.spo2) || record.spo2 < 1 || record.spo2 > 100 ||
+      !Number.isFinite(record.temperature) || record.temperature < 25 || record.temperature > 45) {
+    message.classList.add("error");
+    message.textContent = "One or more values are outside the application's input validation limits.";
+    return;
+  }
+
+  const before = records.length;
+  records.push(record);
+  if (!saveRecords()) {
+    records.length = before;
+    return;
+  }
+
+  $("recordForm").reset();
+  $("recordDate").value = localDateTime(new Date());
+  message.classList.add("success");
+  message.textContent = "Measurement saved to this browser's local dataset.";
+  render();
+});
+
+$("clearForm").addEventListener("click",() => {
+  $("formMessage").textContent = "";
+  $("formMessage").className = "message";
+});
+
+window.addEventListener("resize",() => {
+  drawChart(getFilteredRecords());
+});
+
+window.addEventListener("storage",event => {
+  if (event.key === STORAGE_KEY) {
+    records = loadRecords();
+    render();
+  }
+});
+
+/* Sample dataset reset is available from the application console.
+   Run restoreSampleRecords() to replace local records with fictional samples. */
+window.restoreSampleRecords = function() {
+  const confirmed = confirm(
+    "Restore the original fictional sample dataset? Locally added records will be replaced."
+  );
+  if (!confirmed) return;
+  records = makeSampleRecords();
+  if (saveRecords()) render();
+};
+
 render();
 </script>
 </body>
